@@ -8,8 +8,8 @@ let alias = ( process.env.TARGET !== 'node' ) ? [] : {'./cache-browser' : './cac
 
 if (process.env.REACT_NATIVE) {
   alias = {
-    ...alias,
-    './unique': './unique-rn',
+    './cache-browser' : './cache-node',
+    './unique.js': './unique-rn.js',
   }
 }
 
