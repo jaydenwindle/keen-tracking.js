@@ -29,7 +29,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: `${
-      process.env.TARGET ? `${process.env.TARGET}/` : ''
+      process.env.TARGET ? `${process.env.TARGET}/` : (process.env.REACT_NATIVE ? 'react-native/' : '') 
     }${
       fileName
     }${
