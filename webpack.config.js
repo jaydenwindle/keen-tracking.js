@@ -2,8 +2,28 @@ const path = require('path');
 const webpack = require('webpack');
 
 const fileName = 'keen-tracking';
-const entry = ( process.env.TARGET !== 'node' ) ? [ './lib/browser.js'] : './lib/server.js' ;
-const alias = ( process.env.TARGET !== 'node' ) ? [] : {'./cache-browser' : './cache-node'};
+let entry, alias;
+
+// const entry = ( process.env.TARGET !== 'node' ) ? [ './lib/browser.js'] : './lib/server.js' ;
+// const alias = ( process.env.TARGET !== 'node' ) ? [] : {'./cache-browser' : './cache-node'};
+
+switch (process.env.TARGET) {
+  case "node":
+    entry = './lib/server.js';
+    alias = {'./cache-browser' : './cache-node'};
+    break;
+
+  case "react-native":
+    entry = './lib/react-native.js';
+    alias = {'./cache-browser' : './cache-node'};
+    process.env.TARGET = "web"; // reset to web
+    break;
+
+  default: // browser
+    entry = [ './lib/browser.js' ];
+    alias = [];
+    break;
+}
 
 let definePluginVars = {};
 if (process.env.NODE_ENV === 'development') {
